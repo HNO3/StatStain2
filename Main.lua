@@ -8,48 +8,8 @@
 
 local L = StatStain2Locale
 local AppName = L['StatStain2: StatStain Rebuilt']
-local Version = '0.13.0'
+local Version = '0.15.0'
 local AppFullName = AppName .. ' ' .. Version
-
-local tooltips = {
-	ItemRefTooltip,
-	GameTooltip,
-	ShoppingTooltip1,
-	ShoppingTooltip2,
-	ItemSocketingDescription,
--- EquipCompare
-	ComparisonTooltip1,
-	ComparisonTooltip2,
--- EQCompare
-	EQCompareTooltip1,
-	EQCompareTooltip2,
--- LinkWrangler
-	IRR_ItemRefTooltip1,
-	IRR_ItemCompTooltip1,
-	IRR_ItemCompTool11,
-	IRR_ItemRefTooltip2,
-	IRR_ItemCompTooltip2,
-	IRR_ItemCompTool12,
-	IRR_ItemRefTooltip3,
-	IRR_ItemCompTooltip3,
-	IRR_ItemCompTool13,
-	IRR_ItemRefTooltip4,
-	IRR_ItemCompTooltip4,
-	IRR_ItemCompTool14,
-	IRR_ItemRefTooltip5,
-	IRR_ItemCompTooltip5,
-	IRR_ItemCompTool15,
--- MultiTips
-	ItemRefTooltip2,
-	ItemRefTooltip3,
-	ItemRefTooltip4,
-	ItemRefTooltip5,
--- Bonuses
-	TooltipScan1,
-	TooltipScan2,
-	TooltipScan3,
-	TooltipScan4,
-}
 
 local statstr = '%c%d STAT'
 
@@ -394,24 +354,7 @@ function StatStain2_initTransform()
 end
 
 function StatStain2_initTooltip()
-	for _, v in ipairs(tooltips) do
-		if v and type(v) == 'table' then
-			StatStain2_setTooltipHook(v)
-		end
-	end
-end
-
-function StatStain2_addTooltip(tooltip)
-	if tooltip and type(tooltip) == 'table' then
-		table.insert(tooltips, tooltip)
-		StatStain2_setTooltipHook(tooltip)
-	end
-end
-
-function StatStain2_setTooltipHook(tooltip)
-	tooltip:HookScript('OnTooltipSetItem', function(tooltip)
-		StatStain2_modifyTooltip(tooltip)
-	end)
+	TooltipDataProcessor.AddTooltipPostCall(Enum.TooltipDataType.Item, function(tooltip, tooltipData) StatStain2_modifyTooltip(tooltip) end)
 end
 
 local function parseTextColor(str)
