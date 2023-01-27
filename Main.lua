@@ -347,7 +347,7 @@ end
 
 local function convertMatch(str)
 	str = str:gsub('([%.%(%)%%%+%-%*%?%[%]%^%$])', '%%%1')
-	str = str:gsub('(%%%%s)', '[^%%s]+')
+	str = str:gsub('(%%%%s)', '%%%%d')
 	str = str:gsub('(%%%%d)', '[%%d,%%.]+')
 	str = str:gsub('(%%%%%d+d)', '[%%d,%%.]+')
 	str = str:gsub('(%%%%f)', '[%%d,%%.]+')
@@ -413,6 +413,7 @@ function StatStain2_modifyTooltip(tooltip)
 	end
 
 	for i = 2, #regions do
+		local sobj = regions[i]
 		if sobj:GetObjectType() == "Texture" and sobj:IsShown() then
 			local texture = sobj:GetTexture()
 			if texture then
