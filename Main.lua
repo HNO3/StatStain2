@@ -8,7 +8,7 @@
 
 local L = StatStain2Locale
 local AppName = L['StatStain2: StatStain Rebuilt']
-local Version = '0.15.0'
+local Version = '0.15.2'
 local AppFullName = AppName .. ' ' .. Version
 
 local statstr = '%c%d STAT'
